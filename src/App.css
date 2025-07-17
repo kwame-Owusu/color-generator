@@ -8,7 +8,8 @@
 
 
 .container{ 
-  border: 1px solid blue;
+  border: none;
+  padding: 1rem;
   border-radius: 1rem;
 }
 
@@ -22,14 +23,14 @@
 .color-1{
   border-radius: 3px 3px 0px 0px;
   padding-top: 7rem;
-  background-color: aqua;
 }
 .color-4{
-  padding-top: 7rem;
   border-radius: 0px 0px 5px 5px;
-  border: 1px solid red;
+  border: 1px solid rebeccapurple;
 }
 .generate-btn{
   margin-top: 2rem;
-
+}
+.copy-btn{
+  margin-left: 1rem;
 }

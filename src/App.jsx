@@ -2,27 +2,37 @@ import { useState } from "react";
 import "./App.css";
 
 function ColorDivs() {
+  const colors = ["#7B4019", "#FF7D29", "#FFBF78", "#FFEEA9"];// divs
   return (
     <div className="container">
-      <div className="color-1 color">1</div>
-      <div className="color-2 color">2</div>
-      <div className="color-3 color">3</div>
-      <div className="color-4 color">4</div>
+      {colors.map((color, index) => {
+        return <div key={index} className={`color-${index + 1} color`}>{color}</div>
+      })}
     </div>
   );
 }
 
-function generateColor(){
-  console.log("generating color......");
+function handleGenerate(){
+  let letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * letters.length)];
+  }
+  console.log(color);
+}
+
+function handleCopy(){
+  console.log("copying colors......");
 }
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [currentColor, setColor] = useState([]);
 
   return (
     <>
     <ColorDivs />
-    <button className="generate-btn" onClick={() => generateColor()}>Generate</button>
+    <button className="generate-btn" onClick={() => handleGenerate()}>Generate</button>
+    <button className="copy-btn" onClick={() => handleCopy()}>Copy</button>
     </>
   );
 }
