@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 
-function ColorDivs({colors}) {
+function ColorDivs({ colors }) {
   return (
     <div className="container">
       {colors.map((color, index) => {
@@ -9,7 +9,7 @@ function ColorDivs({colors}) {
           <div
             key={index}
             className={`color-${index + 1} color`}
-            style={{ backgroundColor: colors[index]}}
+            style={{ backgroundColor: colors[index] }}
           >
             {color}
           </div>
@@ -19,16 +19,13 @@ function ColorDivs({colors}) {
   );
 }
 
-function handleCopy() {
-  console.log("copying colors......");
-}
-
 function App() {
   const colors = ["#7B4019", "#FF7D29", "#FFBF78", "#FFEEA9"];
   const [currentColors, setColors] = useState(colors);
+  const [copiedColors, setCopiedColors] = useState([]);
 
   function handleGenerate() {
-    let letters = "0123456789ABCDEF";
+    const letters = "0123456789ABCDEF";
     const colors = [];
     for (let i = 0; i < 4; i++) {
       let color = "#";
@@ -37,12 +34,16 @@ function App() {
       }
       colors.push(color);
     }
-    console.log(colors);
+    console.log("generated colors: ", colors);
     setColors(colors);
+  }
+  function handleCopy() {
+    setCopiedColors(currentColors.slice());
+    console.log("copied colors: ", copiedColors);
   }
   return (
     <>
-      <ColorDivs colors={currentColors}/>
+      <ColorDivs colors={currentColors} />
       <button className="generate-btn" onClick={() => handleGenerate()}>
         Generate
       </button>
