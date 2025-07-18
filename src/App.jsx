@@ -10,7 +10,6 @@ function ColorDivs({ colors }) {
     setCopy(colorToCopy);
 
     await navigator.clipboard.writeText(colorToCopy);
-    console.log("copying color", colorToCopy);
 
     // Show "copied" feedback
     setCopiedIndex(index);
@@ -46,10 +45,13 @@ function ColorDivs({ colors }) {
 function App() {
   const colors = ["#7B4019", "#FF7D29", "#FFBF78", "#FFEEA9"];
   const [currentColors, setColors] = useState(colors);
-  const [copiedColors, setCopiedColors] = useState([]);
+  const [isCopied, setIsCopied] = useState(false);
 
-  function handleCopy() {
-    console.log("copying color palette");
+  async function handleCopy() {
+    const colorString = currentColors.join(" ")
+    await navigator.clipboard.writeText(colorString);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000)
   }
 
   function handleGenerate() {
@@ -62,7 +64,6 @@ function App() {
       }
       colors.push(color);
     }
-    console.log("generated colors: ", colors);
     setColors(colors);
   }
   return (
@@ -80,7 +81,7 @@ function App() {
         style={{ backgroundColor: currentColors[0] }}
         onClick={() => handleCopy()}
       >
-        Copy
+        {isCopied ? "Copied palette ✅" : "Copy"}
       </button>
     </>
   );
