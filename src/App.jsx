@@ -48,10 +48,37 @@ function App() {
   const [isCopied, setIsCopied] = useState(false);
 
   async function handleCopy() {
-    const colorString = currentColors.join(" ")
+    const colorString = currentColors.join(" ");
     await navigator.clipboard.writeText(colorString);
     setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000)
+    setTimeout(() => setIsCopied(false), 2000);
+  }
+
+  function applyPastel(hexColor, blendAmount = 0.45) {
+    const hex = hexColor.replace("#", "");
+
+    // Convert to RGB
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+
+    // Blend with white
+    const newR = Math.round(r + (255 - r) * blendAmount);
+    const newG = Math.round(g + (255 - g) * blendAmount);
+    const newB = Math.round(b + (255 - b) * blendAmount);
+    // Convert back to hex
+    return `#${newR.toString(16).padStart(2, "0")}${newG
+      .toString(16)
+      .padStart(2, "0")}${newB.toString(16).padStart(2, "0")}`;
+  }
+  function turnPastel(colors) {
+    const pastelColors = []
+    for(const color of colors){
+      const newPastel = applyPastel(color);
+      pastelColors.push(newPastel);
+    }
+    console.log(pastelColors);
+    setColors(pastelColors)
   }
 
   function handleGenerate() {
@@ -69,20 +96,29 @@ function App() {
   return (
     <>
       <ColorDivs colors={currentColors} />
-      <button
-        className="generate-btn"
-        style={{ backgroundColor: currentColors[0] }}
-        onClick={() => handleGenerate()}
-      >
-        Generate
-      </button>
-      <button
-        className="copy-btn"
-        style={{ backgroundColor: currentColors[0] }}
-        onClick={() => handleCopy()}
-      >
-        {isCopied ? "Copied palette ✅" : "Copy"}
-      </button>
+
+      <div className="btn-container">
+        <button
+          className="generate-btn"
+          style={{ backgroundColor: currentColors[0] }}
+          onClick={() => handleGenerate()}
+        >
+          Generate
+        </button>
+        <button
+          className="copy-btn"
+          style={{ backgroundColor: currentColors[0] }}
+          onClick={() => handleCopy()}
+        >
+          {isCopied ? "Copied palette ✅" : "Copy"}
+        </button>
+        <input
+          type="checkbox"
+          id="check-pastel"
+          name="pastel"
+          onChange={() => turnPastel(currentColors)}
+        />
+      </div>
     </>
   );
 }
