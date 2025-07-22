@@ -62,7 +62,11 @@
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
+<<<<<<< Updated upstream
   transition: opacity 0.2s ease, visibility 0.2s ease-in;
+=======
+  transition: opacity 0.2s ease, visibility 0,2s ease-in;
+>>>>>>> Stashed changes
   pointer-events: none;
   z-index: 1;
 }
@@ -72,3 +76,7 @@
   opacity: 1;
   visibility: visible;
 }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes

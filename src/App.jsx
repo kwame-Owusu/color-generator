@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function ColorDivs({ colors }) {
@@ -43,9 +43,27 @@ function ColorDivs({ colors }) {
 }
 
 function App() {
-  const colors = ["#7B4019", "#FF7D29", "#FFBF78", "#FFEEA9"];
-  const [currentColors, setColors] = useState(colors);
+  const [currentColors, setColors] = useState([]);
   const [isCopied, setIsCopied] = useState(false);
+<<<<<<< Updated upstream
+=======
+
+  function handleGenerate() {
+    const letters = "0123456789ABCDEF";
+    const colors = [];
+    for (let i = 0; i < 4; i++) {
+      let color = "#";
+      for (let j = 0; j < 6; j++) {
+        color += letters[Math.floor(Math.random() * letters.length)];
+      }
+      colors.push(color);
+    }
+    setColors(colors);
+  }
+  useEffect(() => {
+    handleGenerate();
+  }, []);
+>>>>>>> Stashed changes
 
   async function handleCopy() {
     const colorString = currentColors.join(" ");
@@ -84,18 +102,6 @@ function App() {
     setColors(pastelColors);
   }
 
-  function handleGenerate() {
-    const letters = "0123456789ABCDEF";
-    const colors = [];
-    for (let i = 0; i < 4; i++) {
-      let color = "#";
-      for (let j = 0; j < 6; j++) {
-        color += letters[Math.floor(Math.random() * letters.length)];
-      }
-      colors.push(color);
-    }
-    setColors(colors);
-  }
   return (
     <>
       <ColorDivs colors={currentColors} />
