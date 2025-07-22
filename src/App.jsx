@@ -95,7 +95,6 @@ function App() {
       }
       pastelColors.push(newPastel);
     }
-    console.log(pastelColors);
     setColors(pastelColors);
   }
 
