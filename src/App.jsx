@@ -46,7 +46,6 @@ function App() {
   const colors = ["#7B4019", "#FF7D29", "#FFBF78", "#FFEEA9"];
   const [currentColors, setColors] = useState(colors);
   const [isCopied, setIsCopied] = useState(false);
-  const [isPastel, setPastel] = useState(false);
 
   async function handleCopy() {
     const colorString = currentColors.join(" ");
@@ -73,16 +72,16 @@ function App() {
       .padStart(2, "0")}${newB.toString(16).padStart(2, "0")}`;
   }
   function turnPastel(colors, decrement = false) {
-    const pastelColors = []
-    for(const color of colors){
-      let newPastel = applyPastel(color)
-      if(decrement === true){
-        newPastel = applyPastel(color, -0.15)
+    const pastelColors = [];
+    for (const color of colors) {
+      let newPastel = applyPastel(color);
+      if (decrement === true) {
+        newPastel = applyPastel(color, -0.15);
       }
       pastelColors.push(newPastel);
     }
     console.log(pastelColors);
-    setColors(pastelColors)
+    setColors(pastelColors);
   }
 
   function handleGenerate() {
@@ -115,8 +114,18 @@ function App() {
         >
           {isCopied ? "Copied palette ✅" : "Copy"}
         </button>
-        <button className="incr-pastel" onClick={() => turnPastel(currentColors)}>+</button>
-        <button className="decr-pastel" onClick={() => turnPastel(currentColors, true)}>-</button>
+        <button
+          className="incr-pastel"
+          onClick={() => turnPastel(currentColors)}
+        >
+          + <span className="tooltip">increment pastel level</span>
+        </button>
+        <button
+          className="decr-pastel"
+          onClick={() => turnPastel(currentColors, true)}
+        >
+          - <span className="tooltip">decrement pastel level</span>
+        </button>
       </div>
     </>
   );

@@ -22,17 +22,10 @@
   width: 100%;
   height: 90px;
   font-weight: bold;
-  transition: padding 0.22s ease-in,background-color 0.22s ease-in;
+  transition: padding 0.22s ease-in, background-color 0.22s ease-in;
   cursor: pointer;
 }
 
-.color p {
-  transition: all 0.2s ease;
-}
-
-.copied {
-  transition: all 0.2s ease;
-}
 .color:hover {
   padding-top: 8rem;
   padding-bottom: 8rem;
@@ -44,7 +37,6 @@
   border-radius: 0px 0px 10px 10px;
 }
 
-
 .btn-container{
   margin-top: 1rem;
   display: flex;
@@ -54,3 +46,29 @@
   justify-content: center;
 }
 
+.incr-pastel, .decr-pastel {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease-in;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.incr-pastel:hover .tooltip,
+.decr-pastel:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
