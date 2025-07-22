@@ -45,8 +45,6 @@ function ColorDivs({ colors }) {
 function App() {
   const [currentColors, setColors] = useState([]);
   const [isCopied, setIsCopied] = useState(false);
-<<<<<<< Updated upstream
-=======
 
   function handleGenerate() {
     const letters = "0123456789ABCDEF";
@@ -63,7 +61,6 @@ function App() {
   useEffect(() => {
     handleGenerate();
   }, []);
->>>>>>> Stashed changes
 
   async function handleCopy() {
     const colorString = currentColors.join(" ");
