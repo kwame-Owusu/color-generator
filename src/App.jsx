@@ -46,6 +46,7 @@ function App() {
   const colors = ["#7B4019", "#FF7D29", "#FFBF78", "#FFEEA9"];
   const [currentColors, setColors] = useState(colors);
   const [isCopied, setIsCopied] = useState(false);
+  const [isPastel, setPastel] = useState(false);
 
   async function handleCopy() {
     const colorString = currentColors.join(" ");
@@ -54,7 +55,7 @@ function App() {
     setTimeout(() => setIsCopied(false), 2000);
   }
 
-  function applyPastel(hexColor, blendAmount = 0.45) {
+  function applyPastel(hexColor, blendAmount = 0.15) {
     const hex = hexColor.replace("#", "");
 
     // Convert to RGB
@@ -71,10 +72,13 @@ function App() {
       .toString(16)
       .padStart(2, "0")}${newB.toString(16).padStart(2, "0")}`;
   }
-  function turnPastel(colors) {
+  function turnPastel(colors, decrement = false) {
     const pastelColors = []
     for(const color of colors){
-      const newPastel = applyPastel(color);
+      let newPastel = applyPastel(color)
+      if(decrement === true){
+        newPastel = applyPastel(color, -0.15)
+      }
       pastelColors.push(newPastel);
     }
     console.log(pastelColors);
@@ -96,7 +100,6 @@ function App() {
   return (
     <>
       <ColorDivs colors={currentColors} />
-
       <div className="btn-container">
         <button
           className="generate-btn"
@@ -112,12 +115,8 @@ function App() {
         >
           {isCopied ? "Copied palette ✅" : "Copy"}
         </button>
-        <input
-          type="checkbox"
-          id="check-pastel"
-          name="pastel"
-          onChange={() => turnPastel(currentColors)}
-        />
+        <button className="incr-pastel" onClick={() => turnPastel(currentColors)}>+</button>
+        <button className="decr-pastel" onClick={() => turnPastel(currentColors, true)}>-</button>
       </div>
     </>
   );
