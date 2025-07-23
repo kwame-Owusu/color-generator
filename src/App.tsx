@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-function ColorDivs({ colors }) {
-  const [copy, setCopy] = useState("");
-  const [copiedIndex, setCopiedIndex] = useState(null);
+interface colorProps {
+  colors: string[];
+}
 
-  async function handleCopy(index) {
+function ColorDivs({ colors }: colorProps) {
+  const [_copy, setCopy] = useState<string>("");
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  async function handleCopy(index: number) {
     const colorToCopy = colors[index];
     setCopy(colorToCopy);
 
@@ -43,8 +47,8 @@ function ColorDivs({ colors }) {
 }
 
 function App() {
-  const [currentColors, setColors] = useState([]);
-  const [isCopied, setIsCopied] = useState(false);
+  const [currentColors, setColors] = useState<string[]>([]);
+  const [isCopied, setIsCopied] = useState<boolean>(false);
 
   function handleGenerate() {
     const letters = "0123456789ABCDEF";
@@ -69,13 +73,13 @@ function App() {
     setTimeout(() => setIsCopied(false), 2000);
   }
 
-  function applyPastel(hexColor, blendAmount = 0.15) {
+  function applyPastel(hexColor: string, blendAmount = 0.15): string {
     const hex = hexColor.replace("#", "");
 
     // Convert to RGB
-    const r = parseInt(hex.substr(0, 2), 16);
-    const g = parseInt(hex.substr(2, 2), 16);
-    const b = parseInt(hex.substr(4, 2), 16);
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
 
     // Blend with white
     const newR = Math.round(r + (255 - r) * blendAmount);
@@ -86,7 +90,7 @@ function App() {
       .toString(16)
       .padStart(2, "0")}${newB.toString(16).padStart(2, "0")}`;
   }
-  function turnPastel(colors, decrement = false) {
+  function turnPastel(colors: string[], decrement = false) {
     const pastelColors = [];
     for (const color of colors) {
       let newPastel = applyPastel(color);
